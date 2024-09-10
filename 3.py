@@ -5,22 +5,24 @@
 import json
 
 def calcular_faturamento(faturamento: list):
-    menor = faturamento[0]
-    maior = faturamento[0]
+    menor = faturamento[0]["valor"]
+    maior = faturamento[0]["valor"]
     media = 0
     dias_uteis = 0
     for valor in faturamento:
-        if valor < menor:
-            menor = valor
-        if valor > maior:
-            maior = valor
+        valor = valor["valor"]
         if valor != 0:
+            if valor < menor:
+                menor = valor
+            if valor > maior:
+                maior = valor
             dias_uteis+=1
             media += valor
     
     media = media / dias_uteis
     acima_media = 0
     for valor in faturamento:
+        valor = valor["valor"]
         if valor > media:
             acima_media+=1
     
@@ -31,7 +33,7 @@ def calcular_faturamento(faturamento: list):
           ''')
     
 def main():
-    with open("3.json") as file:
+    with open("./files/dados.json") as file:
         faturamento = json.load(file)
     calcular_faturamento(faturamento)
 
